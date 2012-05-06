@@ -11,14 +11,60 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120506112402) do
+ActiveRecord::Schema.define(:version => 20120506141037) do
+
+  create_table "competencies", :force => true do |t|
+    t.string   "number"
+    t.string   "title"
+    t.integer  "section_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "competencies", ["section_id"], :name => "index_competencies_on_section_id"
+
+  create_table "evidence_competencies", :force => true do |t|
+    t.integer  "evidence_id"
+    t.integer  "competency_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "evidence_competencies", ["competency_id"], :name => "index_evidence_competencies_on_competency_id"
+  add_index "evidence_competencies", ["evidence_id"], :name => "index_evidence_competencies_on_evidence_id"
+
+  create_table "evidence_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "evidences", :force => true do |t|
+    t.string   "title"
+    t.date     "date"
+    t.integer  "evidence_type_id"
+    t.integer  "user_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "evidences", ["evidence_type_id"], :name => "index_evidences_on_evidence_type_id"
+  add_index "evidences", ["user_id"], :name => "index_evidences_on_user_id"
+
+  create_table "sections", :force => true do |t|
+    t.integer  "number"
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end

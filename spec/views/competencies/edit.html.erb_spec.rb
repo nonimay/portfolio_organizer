@@ -3,9 +3,9 @@ require 'spec_helper'
 describe "competencies/edit" do
   before(:each) do
     @competency = assign(:competency, stub_model(Competency,
-      :number => 1,
+      :number => "MyString",
       :title => "MyString",
-      :references => ""
+      :section => nil
     ))
   end
 
@@ -16,7 +16,7 @@ describe "competencies/edit" do
     assert_select "form", :action => competencies_path(@competency), :method => "post" do
       assert_select "input#competency_number", :name => "competency[number]"
       assert_select "input#competency_title", :name => "competency[title]"
-      assert_select "input#competency_references", :name => "competency[references]"
+      assert_select "input#competency_section", :name => "competency[section]"
     end
   end
 end
